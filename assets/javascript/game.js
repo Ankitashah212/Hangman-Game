@@ -4,12 +4,39 @@ var myGuessChar = "";
 var answer = "";
 var counter = 0;
 var success = 0;
-var nationalPark = ["yellow stone", "glacier park", "zion", "everglades", "dry tortugas"];
+var parkArray = [];
+
+//trying to define a constructor of park object /prototype
+function NationalParks(name, image, hint) {
+    this.name = name;
+    this.image = image;
+    this.hint = hint;
+}
+
+var zion = new NationalParks('zion', 'zion.jpg', 'Utah');
+parkArray.push(zion);
+
+var everglades = new NationalParks('everglades', 'everglades.jpg', 'Florida');
+parkArray.push(everglades);
+
+var dryTotugas = new NationalParks('dry tortugas', 'dryTotugas.jpg', 'Florida');
+parkArray.push(dryTotugas);
+
+var glacier = new NationalParks('glacier', 'glacier.jpg', 'Florida');
+parkArray.push(glacier);
+
+var yellowstone = new NationalParks('yellowstone', 'yellowstone.jpg', 'WY');
+parkArray.push(yellowstone);
+
+//var nationalPark = ["yellowstone", "glacier", "zion", "everglades", "dry tortugas"];
+
+//this can be done better with a database, but for now hardcoding it
+
 var myGuessKey = 0;
 var ansInArray = [];
 
 function getRandomPark() {
-    answer = nationalPark[Math.floor(Math.random() * nationalPark.length)];
+    answer = (parkArray[Math.floor(Math.random() * parkArray.length)]).name;
     console.log("answer" + answer);
 }
 
