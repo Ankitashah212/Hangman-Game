@@ -5,6 +5,8 @@ var answer = "";
 var counter = 0;
 var success = 0;
 var parkArray = [];
+var imageURL = "assets/images/"
+var hintState = "";
 
 //trying to define a constructor of park object /prototype
 function NationalParks(name, image, hint) {
@@ -69,7 +71,13 @@ initializeWord(ansInArray, answer);
 document.onkeyup = function (e) {
     myGuessKey = e.which;
     myGuessChar = e.key;
+
+    //initialize the game with basic values
     displayNewArray(ansInArray);
+    document.getElementById("guessed").innerText = "Letters alredy guessed : ";
+    document.getElementById("remain").innerText = "Turns Left : ";
+    document.getElementById("wins").innerText = ("Wins : ");
+    document.body.style.backgroundImage = "url('img_tree.png')";
 
 
     // only track if it's character
