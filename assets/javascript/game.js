@@ -25,7 +25,7 @@ parkArray.push(everglades);
 var dryTotugas = new NationalParks('dry tortugas', 'tortugas.jpg', 'Florida');
 parkArray.push(dryTotugas);
 
-var glacier = new NationalParks('glacier', 'glacier.jpg', 'Florida');
+var glacier = new NationalParks('glacier', 'glacier.jpg', 'Montana');
 parkArray.push(glacier);
 
 var yellowstone = new NationalParks('yellowstone', 'yellowstone.jpg', 'Wyoming');
@@ -50,9 +50,7 @@ function setRandomPark() {
 }
 
 setRandomPark();
-
-
-
+// initialize an empty array .. to be populated as the letters come in
 function initializeWord(word, answer) {
 
     for (var i = 0; i < answer.length; i++) {
@@ -64,6 +62,8 @@ function initializeWord(word, answer) {
         }
     }
 }
+
+//display the new array after every letter gueesed
 
 function displayNewArray(word) {
     document.getElementById("word").innerText = "Word : "
@@ -78,9 +78,6 @@ function displayNewArray(word) {
 
 
 //initialize the game with basic values
-//document.getElementById("guessed").innerText = "Letters alredy guessed : ";
-//document.getElementById("remain").innerText = "Turns Left : 10";
-//document.getElementById("wins").innerText = ("Wins : " + success);
 
 initializeWord(ansInArray, answer);
 
@@ -88,7 +85,6 @@ initializeWord(ansInArray, answer);
 document.onkeyup = function (e) {
     myGuessKey = e.which;
     myGuessChar = e.key;
-
 
     displayNewArray(ansInArray);
     document.getElementById("hint").innerText = "It's in " + hintState;
@@ -108,6 +104,9 @@ document.onkeyup = function (e) {
 
             if (ansInArray.indexOf('-') == -1) {
                 success++;
+
+                //replace this with sound
+                alert("yaay you did it!! Here is a new word!!");
 
                 // reset everything
                 setRandomPark();
@@ -143,8 +142,12 @@ document.onkeyup = function (e) {
             //last failed attempt
             if (counter > (maxTurns - 2)) {
                 console.log('in here');
-                // reset everything
 
+                
+                //replace this with sound
+                alert("sorry !! you are all out of turns, but here is a new word !!");
+
+                // reset everything
                 setRandomPark();
                 ansInArray = [];
                 initializeWord(ansInArray, answer);
