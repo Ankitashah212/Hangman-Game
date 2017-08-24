@@ -33,7 +33,7 @@ var yellowstone = new NationalParks('yellowstone', 'yellowstone.jpg', 'Wyoming')
 parkArray.push(yellowstone);
 
 var yosemite = new NationalParks('yosemite', 'yosemite.jpg', 'California');
-parkArray.push(yellowstone);
+parkArray.push(yosemite);
 
 //var nationalPark = ["yellowstone", "glacier", "zion", "everglades", "dry tortugas"];
 
