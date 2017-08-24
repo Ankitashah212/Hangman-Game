@@ -93,6 +93,8 @@ document.onkeyup = function (e) {
     if (myGuessKey >= 65 && myGuessKey <= 90) {
 
         //  console.log(answer.length);
+        //check for right guesses - don't increment counter
+        // as successful tries don't count
         if (answer.indexOf(myGuessChar) != -1) {
 
             for (var i = 0; i < answer.length; i++) {
@@ -128,40 +130,44 @@ document.onkeyup = function (e) {
 
 
         } else {
-            tried[counter] = e.key;
-            document.getElementById("guessed").innerText += tried[counter];
+            //checking if user already tried the letter - if tried ignore
+            if (tried.indexOf(e.key) == -1) {
+                tried[counter] = e.key;
+                document.getElementById("guessed").innerText += tried[counter];
 
-            console.log(counter, " c ");
-            if (counter >= 0 && counter < maxTurns) {
-                //every failed attempt
-                document.getElementById("guessed").innerText += (" , ");
-                document.getElementById("remain").innerText = "Turns Left : " + ((maxTurns - counter) - 1);
-                // console.log("counter", counter);
+                console.log(counter, " c ");
+                if (counter >= 0 && counter < maxTurns) {
+                    //every failed attempt
+                    document.getElementById("guessed").innerText += (" , ");
+                    document.getElementById("remain").innerText = "Turns Left : " + ((maxTurns - counter) - 1);
+                    // console.log("counter", counter);
+                }
+
+                //last failed attempt
+                if (counter > (maxTurns - 2)) {
+                    console.log('in here');
+
+
+                    //replace this with sound
+                    alert("sorry !! you are all out of turns, but here is a new word !!");
+
+                    // reset everything
+                    setRandomPark();
+                    ansInArray = [];
+                    initializeWord(ansInArray, answer);
+                    displayNewArray(ansInArray);
+                    counter = 0;
+                    tried = [];
+                    document.getElementById("guessed").innerText = "Letters alredy guessed : ";
+                    document.getElementById("remain").innerText = "Turns Left : 10";
+                    document.getElementById("wins").innerText = ("Wins : " + success);
+                    document.body.style.backgroundImage = "url('" + imageURL + "')";
+                    document.getElementById("hint").innerText = "It's in " + hintState;
+
+                }
+                counter++;
+
             }
-
-            //last failed attempt
-            if (counter > (maxTurns - 2)) {
-                console.log('in here');
-
-                
-                //replace this with sound
-                alert("sorry !! you are all out of turns, but here is a new word !!");
-
-                // reset everything
-                setRandomPark();
-                ansInArray = [];
-                initializeWord(ansInArray, answer);
-                displayNewArray(ansInArray);
-                counter = 0;
-                tried = [];
-                document.getElementById("guessed").innerText = "Letters alredy guessed : ";
-                document.getElementById("remain").innerText = "Turns Left : 10";
-                document.getElementById("wins").innerText = ("Wins : " + success);
-                document.body.style.backgroundImage = "url('" + imageURL + "')";
-                document.getElementById("hint").innerText = "It's in " + hintState;
-
-            }
-            counter++;
 
         }
 
