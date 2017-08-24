@@ -8,7 +8,8 @@ var parkArray = [];
 var baseURL = "assets/images/"
 var imageURL = "";
 var hintState = "";
-
+var boo = new Audio("assets/media/boo.wav" ) ;
+var yaay = new Audio("assets/media/yaay.wav" ) ;
 //trying to define a constructor of park object /prototype
 function NationalParks(name, image, hint) {
     this.name = name;
@@ -123,8 +124,8 @@ document.onkeyup = function (e) {
                 success++;
 
                 //replace this with sound
-                alert("yaay you did it!! Here is a new word!!");
-
+               // alert("yaay you did it!! Here is a new word!!");
+                yaay.play();
                 // reset everything
                 reset(e);
             }
@@ -146,7 +147,8 @@ document.onkeyup = function (e) {
                 if (counter > (maxTurns - 2)) {
                     reset(e);
                     //replace this with sound
-                    alert("sorry !! you are all out of turns, but here is a new word !!");
+                    //alert("sorry !! you are all out of turns, but here is a new word !!");
+                    boo.play();
                 }
                 counter++;
 
