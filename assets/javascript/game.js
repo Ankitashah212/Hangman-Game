@@ -5,7 +5,8 @@ var answer = "";
 var counter = 0;
 var success = 0;
 var parkArray = [];
-var imageURL = "assets/images/"
+var baseURL = "assets/images/"
+var imageURL = "";
 var hintState = "";
 
 //trying to define a constructor of park object /prototype
@@ -21,28 +22,35 @@ parkArray.push(zion);
 var everglades = new NationalParks('everglades', 'everglades.jpg', 'Florida');
 parkArray.push(everglades);
 
-var dryTotugas = new NationalParks('dry tortugas', 'dryTotugas.jpg', 'Florida');
+var dryTotugas = new NationalParks('dry tortugas', 'tortugas.jpg', 'Florida');
 parkArray.push(dryTotugas);
 
 var glacier = new NationalParks('glacier', 'glacier.jpg', 'Florida');
 parkArray.push(glacier);
 
-var yellowstone = new NationalParks('yellowstone', 'yellowstone.jpg', 'WY');
+var yellowstone = new NationalParks('yellowstone', 'yellowstone.jpg', 'Wyoming');
+parkArray.push(yellowstone);
+
+var yosemite = new NationalParks('yosemite', 'yosemite.jpg', 'California');
 parkArray.push(yellowstone);
 
 //var nationalPark = ["yellowstone", "glacier", "zion", "everglades", "dry tortugas"];
 
 //this can be done better with a database, but for now hardcoding it
-
+var park;
 var myGuessKey = 0;
 var ansInArray = [];
-
-function getRandomPark() {
-    answer = (parkArray[Math.floor(Math.random() * parkArray.length)]).name;
-    console.log("answer" + answer);
+var NationalParks;
+function setRandomPark() {
+    park = (parkArray[Math.floor(Math.random() * parkArray.length)]);
+    answer = park.name;
+    imageURL = baseURL + park.image;
+    hintState = park.hint;
+    console.log(answer, imageURL);
 }
 
-getRandomPark();
+setRandomPark();
+
 
 
 function initializeWord(word, answer) {
@@ -67,19 +75,24 @@ function displayNewArray(word) {
         }
     }
 }
+
+
+//initialize the game with basic values
+//document.getElementById("guessed").innerText = "Letters alredy guessed : ";
+//document.getElementById("remain").innerText = "Turns Left : 10";
+//document.getElementById("wins").innerText = ("Wins : " + success);
+
 initializeWord(ansInArray, answer);
+
+
 document.onkeyup = function (e) {
     myGuessKey = e.which;
     myGuessChar = e.key;
 
-    //initialize the game with basic values
+
     displayNewArray(ansInArray);
-    document.getElementById("guessed").innerText = "Letters alredy guessed : ";
-    document.getElementById("remain").innerText = "Turns Left : ";
-    document.getElementById("wins").innerText = ("Wins : ");
-    document.body.style.backgroundImage = "url('img_tree.png')";
-
-
+    document.getElementById("hint").innerText = "It's in " + hintState;
+    document.body.style.backgroundImage = "url('" + imageURL + "')";
     // only track if it's character
     if (myGuessKey >= 65 && myGuessKey <= 90) {
 
@@ -92,19 +105,24 @@ document.onkeyup = function (e) {
                 }
             }
             displayNewArray(ansInArray);
+
             if (ansInArray.indexOf('-') == -1) {
                 success++;
-                document.getElementById("wins").innerText = ("Wins : " + success);
+
                 // reset everything
-                getRandomPark();
+                setRandomPark();
                 ansInArray = [];
                 initializeWord(ansInArray, answer);
                 displayNewArray(ansInArray);
                 counter = 0;
                 tried = [];
-                document.getElementById("guessed").innerText = "Letters alredy guessed :";
-                document.getElementById("remain").innerText = "Turns Left : ";
-                var url = answer + ".jpg";
+                document.getElementById("guessed").innerText = "Letters alredy guessed : ";
+                document.getElementById("remain").innerText = "Turns Left : 10";
+                document.body.style.backgroundImage = "url('" + imageURL + "')";
+                document.getElementById("hint").innerText = "It's in " + hintState;
+
+                document.getElementById("wins").innerText = ("Wins : " + success);
+
                 // document.body.style.backgroundImage = "url('assets/images/"+ url +"')";
             }
 
@@ -114,9 +132,10 @@ document.onkeyup = function (e) {
             tried[counter] = e.key;
             document.getElementById("guessed").innerText += tried[counter];
 
+            console.log(counter, " c ");
             if (counter >= 0 && counter < maxTurns) {
                 //every failed attempt
-                document.getElementById("guessed").innerText += " , ";
+                document.getElementById("guessed").innerText += (" , ");
                 document.getElementById("remain").innerText = "Turns Left : " + ((maxTurns - counter) - 1);
                 // console.log("counter", counter);
             }
@@ -125,14 +144,19 @@ document.onkeyup = function (e) {
             if (counter > (maxTurns - 2)) {
                 console.log('in here');
                 // reset everything
-                getRandomPark();
+
+                setRandomPark();
                 ansInArray = [];
                 initializeWord(ansInArray, answer);
                 displayNewArray(ansInArray);
                 counter = 0;
                 tried = [];
-                document.getElementById("guessed").innerText = "Letters alredy guessed :";
-                document.getElementById("remain").innerText = "Turns Left : ";
+                document.getElementById("guessed").innerText = "Letters alredy guessed : ";
+                document.getElementById("remain").innerText = "Turns Left : 10";
+                document.getElementById("wins").innerText = ("Wins : " + success);
+                document.body.style.backgroundImage = "url('" + imageURL + "')";
+                document.getElementById("hint").innerText = "It's in " + hintState;
+
             }
             counter++;
 
