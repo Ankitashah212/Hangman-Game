@@ -46,7 +46,7 @@ function setRandomPark() {
     answer = park.name;
     imageURL = baseURL + park.image;
     hintState = park.hint;
-    //console.log(answer, imageURL);
+    console.log(answer, imageURL);
 }
 
 setRandomPark();
@@ -115,16 +115,14 @@ document.onkeyup = function (e) {
                     ansInArray[i] = myGuessChar;
                 }
             }
-
             displayNewArray(ansInArray);
-            //  console.log(ansInArray);
+            console.log(ansInArray);
 
             if (ansInArray.indexOf('-') == -1) {
 
                 success++;
 
                 //replace this with sound
-
                 alert("yaay you did it!! Here is a new word!!");
 
                 // reset everything
@@ -134,12 +132,10 @@ document.onkeyup = function (e) {
         } else {
             //checking if user already tried the letter - if tried ignore
             if (tried.indexOf(e.key) == -1) {
-
                 tried[counter] = e.key;
                 document.getElementById("guessed").innerText += tried[counter];
 
-               // console.log(counter, " c ", tried[counter]);
-
+                console.log(counter, " c ");
                 if (counter >= 0 && counter < maxTurns) {
                     //every failed attempt
                     document.getElementById("guessed").innerText += (" , ");
@@ -149,9 +145,12 @@ document.onkeyup = function (e) {
 
                 //last failed attempt
                 if (counter > (maxTurns - 2)) {
+                    console.log('in here');
                     reset(e);
                     //replace this with sound
                     alert("sorry !! you are all out of turns, but here is a new word !!");
+
+
                 }
                 counter++;
 
