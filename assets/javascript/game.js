@@ -120,11 +120,9 @@ document.onkeyup = function (e) {
             //  console.log(ansInArray);
 
             if (ansInArray.indexOf('-') == -1) {
-
                 success++;
 
                 //replace this with sound
-
                 alert("yaay you did it!! Here is a new word!!");
 
                 // reset everything
@@ -138,15 +136,12 @@ document.onkeyup = function (e) {
                 tried[counter] = e.key;
                 document.getElementById("guessed").innerText += tried[counter];
 
-               // console.log(counter, " c ", tried[counter]);
-
                 if (counter >= 0 && counter < maxTurns) {
                     //every failed attempt
                     document.getElementById("guessed").innerText += (" , ");
                     document.getElementById("remain").innerText = "Turns Left : " + ((maxTurns - counter) - 1);
                     // console.log("counter", counter);
                 }
-
                 //last failed attempt
                 if (counter > (maxTurns - 2)) {
                     reset(e);
